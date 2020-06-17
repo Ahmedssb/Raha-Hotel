@@ -1,3 +1,7 @@
+<?php 
+   session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,18 +35,25 @@
                         <li class="nav-item">
                            <a class="nav-link custom-nav-link lang" href="#home" key="home">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#services" key="services">Services</a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link custom-nav-link lang" href="#about" key="about">About</a>
                         </li>     
                          <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#why" key="why">Why Us</a>
+                            <a class="nav-link custom-nav-link lang" href="views/login_view.php" key="why">Login</a>
                         </li>  
                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#contact" key="contact">Contact</a>
+                            <a class="nav-link custom-nav-link lang" href="views/register_view.php" key="contact">Register</a>
                         </li>  
+                        <?php
+                              if(isset($_SESSION['logged'])) {
+                                  
+                               echo '
+                              <li class="nav-item">
+                                <a class="nav-link custom-nav-link translate" href="views/logout.php" >Logout</a>
+                              </li>
+                            '; }
+                        ?>
                          <li class="nav-item">
                             <a class="nav-link custom-nav-link translate" href="#" id="en">English</a>
                         </li>
