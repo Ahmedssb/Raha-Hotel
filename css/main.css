@@ -88,7 +88,7 @@
 .caption .large-screen-table td input[type=date]{
     width: 90%;
 }
-.caption .large-screen-table td input[type=button]{
+.caption .large-screen-table td input[type=submit]{
     background-color: #1cc3b2;
     color: #fff;
     border: none;

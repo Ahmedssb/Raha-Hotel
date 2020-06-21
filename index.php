@@ -83,17 +83,23 @@
                 <th >Check in</th>  
                 <th>check out</th>   
                 <th>Room</th>   
-                <th>type</th>   
-                <th>check ava</th>   
-            </tr>
+                <th>Check Availabilatiy</th>   
+             </tr>
               
         <tr>
-          <td> <input type="date"></td>      
-          <td><input type="date"></td>      
-          <td class="small-td"><input type="number"></td>      
-          <td class="medium-td" ><input type="text"  ></td>      
-          <td class="medium-td" ><input type="button" value="check" ></td>      
+          <form method="post" action="classes/getRoom.php">    
+              <td> <input type="date" name="date_in" required></td>      
+              <td><input type="date" name="date_out" required></td>      
+               <td class="medium-td" > 
+                 <select name="type"  required>
+                   <option value="single">Single Room</option>   
+                   <option value="double">Double Room</option>   
+                   
+                </select>
               
+              </td>      
+              <td class="medium-td" ><input type="submit" value="check" name="checkRoom"></td>      
+          </form>    
         </tr>      
          
           </table>

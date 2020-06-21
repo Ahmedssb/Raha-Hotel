@@ -1,3 +1,13 @@
+<?php 
+include '../includes/room_inc.php';
+
+ if(isset($_GET['rid'])){
+  $id = $_GET['rid'];
+ $room_obj = new Room();
+ $room=$room_obj->getRoomInfo($id);
+         
+ }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +16,12 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Raha Hotel   ">
 <meta name="keywords" content="Hotel   ">
- <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 
- <link rel="stylesheet" href="css/rooms.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="icon" href="/img/raha.png" type="image/png" sizes="20x20">
+ <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+ <link rel="stylesheet" href="../css/rooms.css">
+ <link rel="icon" href="../img/raha.png" type="image/png" sizes="20x20">
 
   
 </head>
@@ -109,23 +120,27 @@
    <div class="row" style="padding-top: 15px;">
     
     <div clsss="col-md-6">
-       <table class="room-service-table">
-         <tr>
-          <th>price</th>  
-          <th>size</th>  
-          <th>capacity</th>  
-          <th>bed</th>   
-         </tr>
-           
-        <tr>
-          <td>300$</td>  
-           <td>30ft</td>
-           <td>3 person</td>
-            <td>king bed</td>
-        </tr>   
-        
-       </table>
-       
+    <?php    
+    foreach($room as $r){
+       echo '
+           <table class="room-service-table">
+             <tr>             
+              <th>price</th>  
+              <th>size</th>  
+              <th>capacity</th>  
+              <th>bed</th>   
+             </tr>
+
+            <tr>
+              <td>'.$r['price'].'$</td>  
+               <td>'.$r['size'].'</td>
+               <td>'.$r['capacity'].'</td>
+                <td>'.$r['bed'].'</td>
+            </tr>   
+
+           </table>' ;
+      }
+         ?>
     </div>
     
    </div>

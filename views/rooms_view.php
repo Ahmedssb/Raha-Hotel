@@ -1,3 +1,12 @@
+<?php 
+   session_start(); 
+      if(isset($_SESSION['rooms'])){
+          
+        $rooms = $_SESSION['rooms'];
+          
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +17,11 @@
 <meta name="keywords" content="Hotel   ">
  <link rel="stylesheet" href="css/bootstrap.min.css">
 
- <link rel="stylesheet" href="css/rooms.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="icon" href="/img/raha.png" type="image/png" sizes="20x20">
+ <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+ <link rel="stylesheet" href="../css/rooms.css">
+ <link rel="icon" href="../img/raha.png" type="image/png" sizes="20x20">
+
 
   
 </head>
@@ -76,101 +87,92 @@
     
 <!-- start rooms section -->
 <div class="container" style="padding: 30px 0px;" >
-  <div class="row" style="padding: 5px 0px;" >
-    <div class="col-md-4">
-          <img src="img/2.jpg" class="img-fluid"  >
-      
-    </div>
-      
-    <div class="col-md-4">
-      <h5>Small Room</h5>
-      <table>
-        <tr>
-          <td>300$/day</td>
-        </tr>
-        <tr>
-          <td>size</td>
-          <td>capacity</td>
-        </tr> 
-        <tr>
-          <td>30ft</td>
-          <td>3person</td>    
-        </tr>  
-        <tr>
-          <td>bed</td> 
-        </tr>
-        <tr>
-          <td>king bed</td>      
-        </tr>  
-        <tr>
-          <td><a href="">View Details</a></td>
-        </tr>  
-      </table>    
-      
-    </div>
-     
-      <div class="col-md-4">
-    
-    <table  class="filter-table">
-      <caption style="caption-side: top;text-align: center">Refine</caption>    
-      <tr>
-        <td>Check in</td>
-        <td>check out</td>
-      </tr>
-      <tr>
-        <td><input type="date"></td>
-         <td><input type="date"></td>
+    <div class="row">
+        <div class="col-md-4">
 
-      </tr>
-      <tr>
-       <td  colspan="2"  ><input type="submit" value="check"></td>  
+            <table  class="filter-table">
+              <caption style="caption-side: top;text-align: center">Refine</caption>    
+              <tr>
+                <td>Check in</td>
+                <td>check out</td>
+              </tr>
+              <tr>
+                <td><input type="date"></td>
+                 <td><input type="date"></td>
+
+              </tr>
+              <tr>
+               <td  colspan="2"  ><input type="submit" value="check"></td>  
+
+              </tr>    
+            </table>
+
+      </div>  
+    
+    </div>
+    
+ <?php  
+    
+    if(!empty($rooms)){
+        foreach($rooms as $room){
+         echo '
+
+              <div class="row" style="padding: 5px 0px;" >
+                <div class="col-md-4">
+                      <img src="img/2.jpg" class="img-fluid"  >
+
+                </div>
+
+                <div class="col-md-4">
+                  <h5>'.$room['type'].'</h5>
+                  <table>
+                    <tr>
+                      <td>'.$room['price'].'$/day</td>
+                    </tr>
+                    <tr>
+                      <td>size</td>
+                      <td>capacity</td>
+                    </tr> 
+                    <tr>
+                      <td>'.$room['size'].'</td>
+                      <td>'.$room['capacity'].'</td>    
+                    </tr>  
+                    <tr>
+                      <td>bed</td> 
+                    </tr>
+                    <tr>
+                      <td>'.$room['bed'].'</td>      
+                    </tr>  
+                    <tr>
+                      <td><a href="single_room_view.php?rid='.$room['id'].' ">View Details</a></td>
+                    </tr>  
+                  </table>    
+
+                </div>  
+             </div>';
+        }
         
-      </tr>    
-    </table>
-    
-  </div>   
+    }else{
+        echo'
+        <div class="row" style="padding: 5px 0px;" >
+         <div class="col-md-4">
+           
+        </div>
+         
+         <div class="col-md-4">
+            <p> Sorry No Room Available  </p>
+        </div>
+        
+        </div>
+        
+        
+        '
+            
+            ;
+    }
+    ?>
+  
       
- </div>
-    
- <div class="row" style="padding: 5px 0px;">
-    <div class="col-md-4">
-          <img src="img/2.jpg" class="img-fluid"  >
-      
-    </div>
-      
-    <div class="col-md-4">
-      <h5>Small Room</h5>
-      <table>
-        <tr>
-          <td>300$/day</td>
-        </tr>
-        <tr>
-          <td>size</td>
-          <td>capacity</td>
-        </tr> 
-        <tr>
-          <td>30ft</td>
-          <td>3person</td>    
-        </tr>  
-        <tr>
-          <td>bed</td> 
-        </tr>
-        <tr>
-          <td>king bed</td>      
-        </tr>  
-        <tr>
-          <td><a href="">View Details</a></td>
-        </tr>  
-      </table>    
-      
-    </div>
-       
-      
- </div>
-   
-    
-   
-    
 </div>    
 
   
