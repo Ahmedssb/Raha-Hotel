@@ -1,6 +1,14 @@
 <?php 
    session_start(); 
-      if(isset($_SESSION['rooms'])){
+// if user logged or redirect it to the login page 
+if(isset($_SESSION['logged'])){
+     $logged=$_SESSION['logged'];  
+   $email=$_SESSION['email'];
+  }else{
+    header("Location: login_view.php");
+    exit();
+}
+if(isset($_SESSION['rooms'])){
           
         $rooms = $_SESSION['rooms'];
           
@@ -20,7 +28,7 @@
  <link rel="stylesheet" href="../css/bootstrap.min.css">
 
  <link rel="stylesheet" href="../css/rooms.css">
- <link rel="icon" href="../img/raha.png" type="image/png" sizes="20x20">
+ <link rel="icon" href="/../img/raha.png" type="image/png" sizes="20x20">
 
 
   
@@ -40,20 +48,11 @@
              <div class="collapse navbar-collapse" id="menu">
                     <ul class="navbar-nav  ml-auto" >
                         <li class="nav-item">
-                           <a class="nav-link custom-nav-link lang" href="#home" key="home">Home</a>
+                           <a class="nav-link custom-nav-link lang" href="../index.php" key="home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#services" key="services">Services</a>
+                                <a class="nav-link custom-nav-link translate" href="views/logout.php" >Logout</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#about" key="about">About</a>
-                        </li>     
-                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#why" key="why">Why Us</a>
-                        </li>  
-                        <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#contact" key="contact">Contact</a>
-                        </li>  
                          <li class="nav-item">
                             <a class="nav-link custom-nav-link translate" href="#" id="en">English</a>
                         </li>
@@ -91,20 +90,34 @@
         <div class="col-md-4">
 
             <table  class="filter-table">
+            <form method="post" action="classes/getRoom.php">    
               <caption style="caption-side: top;text-align: center">Refine</caption>    
               <tr>
                 <td>Check in</td>
                 <td>check out</td>
               </tr>
               <tr>
-                <td><input type="date"></td>
-                 <td><input type="date"></td>
+                <td><input type="date" id="check_in"></td>
+                 <td><input type="date" id="check_out"></td>
 
               </tr>
               <tr>
-               <td  colspan="2"  ><input type="submit" value="check"></td>  
-
+                <td colspan="2">Type</td>  
               </tr>    
+              <tr>
+                <td colspan="2">
+                    <select name="type"  id="type"  required>
+                   <option value="single">Single Room</option>   
+                   <option value="double">Double Room</option>   
+                   
+                </select>
+                  </td>  
+              </tr>    
+              <tr>
+               <td  colspan="2"  ><input type="submit" value="check" id="rooms_check"></td>  
+
+              </tr> 
+            </form>    
             </table>
 
       </div>  
@@ -119,7 +132,7 @@
 
               <div class="row" style="padding: 5px 0px;" >
                 <div class="col-md-4">
-                      <img src="img/2.jpg" class="img-fluid"  >
+                      <img src="../roomImages/'.$room['image'].' " class="img-fluid"  >
 
                 </div>
 

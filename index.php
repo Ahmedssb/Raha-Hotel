@@ -1,6 +1,10 @@
 <?php 
    session_start();
-
+  if(isset($_SESSION['logged'])){
+     $logged=$_SESSION['logged'];
+      $email=$_SESSION['email'];
+   }
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">

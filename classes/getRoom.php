@@ -1,6 +1,5 @@
 <?php 
    session_start(); 
-
 include '../includes/room_inc.php';
 
 class GetRoom extends Room{
@@ -16,11 +15,44 @@ public function checkroom($date_in,$date_out,$type){
          echo "<br>";
      }*/
      return $avilable_rooms;
-}    
+}
+    
+ public function isRoomAva($id,$date_in,$date_out){
+     
+     $ava = $this->isRoomAvailable($id,$date_in,$date_out);     
+     
+     return $ava;
+}
+    
+public function roomInfo($id){
+    $room_info =$this->getRoomInfo($id);
+    
+    return $room_info;
+}
     
 }
 
-
+// if is set  call the fun  from the  class above 
+      if(isset($_POST['id'])){
+          
+        $id = $_POST['id'];
+        $date_in = $_POST['date_in'];
+        $date_out = $_POST['date_out'];
+          
+        $_SESSION['date_in']=$date_in;
+        $_SESSION['date_out']= $date_out;
+          
+        $room = new GetRoom();
+       $ava=$room->isRoomAva($id,$date_in,$date_out);
+         if($ava){
+        echo "true";
+            die; 
+         }else{
+             echo "false";
+            die; 
+         }
+          
+        }
 // if is set  call the fun  from the  class above 
       if(isset($_POST['checkRoom'])){
           
@@ -30,7 +62,7 @@ public function checkroom($date_in,$date_out,$type){
         $type = $_POST['type'];
            
           
-        $room = new GetRoom();
+          $room = new GetRoom();
           // call fun checkroom
          $availableRooms=$room->checkroom($date_in,$date_out,$type);
          $_SESSION['rooms'] = $availableRooms;
@@ -39,11 +71,13 @@ public function checkroom($date_in,$date_out,$type){
           exit();
    
         }
-      else{
+      /*else{
         header("Location: ../index.php");
         exit();
-       }
+       }*/
     
+
+
 
 
 ?>

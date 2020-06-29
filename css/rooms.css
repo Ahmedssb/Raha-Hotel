@@ -108,6 +108,35 @@
  color: red;
  text-align: center;
 }
+/* book_view css */  
+.book-div{
+    text-align: center;
+         
+}
+.book-div button{
+    background-color: #1cc3b2;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px 60px;
+    margin-top: 5px;
+    display: flex; 
+    position: relative;
+    left: 35%;
+}
+
+/* thanks_view css  */
+.thanks-div{
+    padding: 30px 0px;
+}
+.thanks-div p{
+    color: #1cc3b2;
+    font-size: 20px;
+}
+.thanks-div strong{
+    color: #1cc3b2;
+}
+/* end of thanks_view css*/
 footer{
     background-color: #0e2737;
      

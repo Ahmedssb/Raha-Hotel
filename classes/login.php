@@ -31,8 +31,11 @@ class Login extends User{
                     $user=$this->login($email,$password);
                     
                     if($user){
-                          // active the logged session 
-                         $_SESSION['logged'] = true;  
+                          if(isset($_SESSION['logged'])){
+                            $logged=$_SESSION['logged'];  
+                             $email=$_SESSION['email'];
+                               }
+
                          header("location:..\index.php");
                          exit();
                     }else{
