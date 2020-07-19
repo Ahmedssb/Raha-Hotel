@@ -137,6 +137,23 @@
     color: #1cc3b2;
 }
 /* end of thanks_view css*/
+
+/* profile view css  */
+.profile-tab{
+    padding: 10px 2px;
+}
+.profile-tab button{
+    width: 100%;
+    border: none;
+     background-color:  #1cc3b2;
+    color: #fff;
+    padding: 10px 5px;
+    font-size: 18px;
+    border-radius: 20px;
+}
+.tabcontent{
+    padding-top: 30px;
+}
 footer{
     background-color: #0e2737;
      

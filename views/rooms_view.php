@@ -23,8 +23,7 @@ if(isset($_SESSION['rooms'])){
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Raha Hotel   ">
 <meta name="keywords" content="Hotel   ">
- <link rel="stylesheet" href="css/bootstrap.min.css">
-
+ 
  <link rel="stylesheet" href="../css/bootstrap.min.css">
 
  <link rel="stylesheet" href="../css/rooms.css">
@@ -41,7 +40,7 @@ if(isset($_SESSION['rooms'])){
        <!-- start nav -->
      <nav class="navbar  navbar-light   navbar-expand-md custom-nav">
          <div class="container-fluid">
-             <a class="navbar-brand" href="#"><img src="img/raha.png"></a>
+             <a class="navbar-brand" href="../index.php"><img src="../img/raha.png"></a>
              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"> 
                  <span class="navbar-toggler-icon" style="color: red;"></span>
              </button>
@@ -85,20 +84,20 @@ if(isset($_SESSION['rooms'])){
 
     
 <!-- start rooms section -->
-<div class="container" style="padding: 30px 0px;" >
-    <div class="row">
+<div class="container" style="padding: 30px 0px;"  id="container_div" >
+    <div class="row"  id="refine_div">
         <div class="col-md-4">
 
             <table  class="filter-table">
-            <form method="post" action="classes/getRoom.php">    
+            <form method="post" action="">    
               <caption style="caption-side: top;text-align: center">Refine</caption>    
               <tr>
                 <td>Check in</td>
                 <td>check out</td>
               </tr>
               <tr>
-                <td><input type="date" id="check_in"></td>
-                 <td><input type="date" id="check_out"></td>
+                <td><input type="date" id="check_in" name="check_in"></td>
+                 <td><input type="date" id="check_out" name="check_out"></td>
 
               </tr>
               <tr>
@@ -106,7 +105,7 @@ if(isset($_SESSION['rooms'])){
               </tr>    
               <tr>
                 <td colspan="2">
-                    <select name="type"  id="type"  required>
+                    <select name="type"  id="type"  name="type"  required>
                    <option value="single">Single Room</option>   
                    <option value="double">Double Room</option>   
                    
@@ -130,7 +129,7 @@ if(isset($_SESSION['rooms'])){
         foreach($rooms as $room){
          echo '
 
-              <div class="row" style="padding: 5px 0px;" >
+              <div class="row room-div "    style="padding: 5px 0px; " id="room_div">
                 <div class="col-md-4">
                       <img src="../roomImages/'.$room['image'].' " class="img-fluid"  >
 
@@ -225,10 +224,10 @@ if(isset($_SESSION['rooms'])){
     
 </footer>    
 
- <script src="js/jquery-3.4.1.js"></script>
- <script src="js/popper.min.js"></script>
- <script src="js/bootstrap.min.js"></script>   
- <script src="js/main.js"></script>
+ <script src="../js/jquery-3.4.1.js"></script>
+ <script src="../js/popper.min.js"></script>
+ <script src="../js/bootstrap.min.js"></script>   
+ <script src="../js/main.js"></script>
 </body>
 
 </html>

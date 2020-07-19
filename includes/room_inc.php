@@ -62,19 +62,20 @@ protected function isRoomAvailable($id,$date_in,$date_out){
                 date out < date in
                 */
                 // the below query check for available periods
-                $sql2="SELECT * FROM reservations WHERE room_id= '$id'  And (  date_in>'$date_out' or date_out< '$date_in')";
-                $result= $db->query($sql2);
-                $numRows2=$result->num_rows;
-
-                if($numRows2>0){
-                    return true;
-                }else{
-                  return false;
-                }
-        }else{
+                     $sql2="SELECT * FROM reservations WHERE room_id= '$id'  And (  date_in>'$date_out' or date_out< '$date_in')";
+                    $result= $db->query($sql2);
+                    $numRows2=$result->num_rows;
+                     if($numRows2>0){
+                            
+                            return true;
+                        }else{
+                          return false;
+                        }
+                 
+                } else{
              return true;
             
-        }
+               }
     
     
 }
@@ -141,9 +142,7 @@ public function getReservationData($id){
     
 }
 
-public function getRoomsImages($id){
-    
-}
+
 
 //this function convert multudimensiol array into single array 
 function array_flatten($array) { 

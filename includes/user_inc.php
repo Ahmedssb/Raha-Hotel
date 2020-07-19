@@ -78,7 +78,66 @@ public function getUserData($email) {
         $result = $this->array_flatten($result);
         return $result; 
 }
+ 
     
+    
+public function updateUserInfo($fname,$lname,$email,$id){
+
+        $db = $this->connect();
+        $sql = "UPDATE users SET firstName='$fname', lastName= '$lname' , email='$email' WHERE id='$id' ";
+        $result= $db->query($sql);
+
+          if($result){
+                return true;
+            }else{
+                return false;
+            }  
+}
+    
+public function isPasswordCorrect($email,$pwd){
+     $userdata = $this->getUserData($email);
+            
+    // use pass word verify to decrypt the pass stored in the database and compare it eith the one user provided
+            if(password_verify($pwd,$userdata['password'])) {
+                    return "true";
+                } else {
+                    return "false";
+                }
+}  
+
+public function restPassword($password,$id){
+       
+        $db = $this->connect();
+        // use passhash fun to encrypt pass 
+        $hash=password_hash($password, PASSWORD_DEFAULT);
+        
+        $sql = "UPDATE users SET password = '$hash' WHERE id = $id";
+        $query = $db->query($sql);
+
+        if($query === TRUE) {
+            return true;
+        } else {
+            return false;
+          }
+    
+}
+    
+public function getUserReservations($id){
+    $db = $this->connect();
+         $sql="SELECT * FROM reservations WHERE user_id = '$id' ";
+    
+        $result= $db->query($sql);
+        $numRows=$result->num_rows;
+          
+            if($numRows > 0 ){
+
+                while($row= $result->fetch_array()){
+                    $reservations[]=$row;
+                }
+                
+                return $reservations;
+            }
+}
     
 //this function convert multudimensiol array into single array 
 function array_flatten($array) { 

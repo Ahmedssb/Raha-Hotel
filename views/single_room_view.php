@@ -1,4 +1,6 @@
 <?php 
+ include '../classes/getRoom.php';
+
 // if user logged or redirect it to the login page 
 if(isset($_SESSION['logged'])){
      $logged=$_SESSION['logged'];  
@@ -8,7 +10,6 @@ if(isset($_SESSION['logged'])){
     exit();
 }
 
-include '../classes/getRoom.php';
 
  if(isset($_GET['rid'])){
   $id = $_GET['rid'];
@@ -41,7 +42,7 @@ include '../classes/getRoom.php';
        <!-- start nav -->
      <nav class="navbar  navbar-light   navbar-expand-md custom-nav">
          <div class="container-fluid">
-             <a class="navbar-brand" href="#"><img src="img/raha.png"></a>
+             <a class="navbar-brand" href="../index.php"><img src="../img/raha.png"></a>
              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"> 
                  <span class="navbar-toggler-icon" style="color: red;"></span>
              </button>

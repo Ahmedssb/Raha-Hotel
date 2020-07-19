@@ -71,11 +71,29 @@ public function roomInfo($id){
           exit();
    
         }
-      /*else{
-        header("Location: ../index.php");
-        exit();
-       }*/
     
+
+
+// if is set  call the fun  from the  class above 
+      if(isset($_POST['check_in'])){
+          
+        // get the data from the form 
+        $date_in = $_POST['check_in'];
+        $date_out = $_POST['check_out'];
+        $type = $_POST['type'];
+           
+          
+         $room = new GetRoom();
+          // call fun checkroom
+         $availableRooms=$room->checkroom($date_in,$date_out,$type);
+         
+         $availableRooms=json_encode($availableRooms);
+          echo $availableRooms;
+         die;
+           
+           
+   
+        }
 
 
 

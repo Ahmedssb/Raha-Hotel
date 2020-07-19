@@ -24,7 +24,7 @@
        <!-- start nav -->
      <nav class="navbar  navbar-light   navbar-expand-md custom-nav">
          <div class="container-fluid">
-             <a class="navbar-brand" href="#"><img src="img/raha.png"></a>
+             <a class="navbar-brand" href="../index.php"><img src="../img/raha.png"></a>
              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"> 
                  <span class="navbar-toggler-icon" style="color: red;"></span>
              </button>

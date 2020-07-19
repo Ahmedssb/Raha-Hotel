@@ -14,8 +14,8 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Raha Hotel   ">
 <meta name="keywords" content="Hotel   ">
+    
  <link rel="stylesheet" href="css/bootstrap.min.css">
-
  <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="icon" href="/img/raha.png" type="image/png" sizes="20x20">
@@ -56,6 +56,16 @@
                               <li class="nav-item">
                                 <a class="nav-link custom-nav-link translate" href="views/logout.php" >Logout</a>
                               </li>
+                            '; }
+                        ?>
+                        
+                        <?php
+                              if(isset($_SESSION['logged'])) {
+                                  
+                               echo '
+                                <li class="nav-item">
+                                <a class="nav-link custom-nav-link translate" href="views/user_profile_view.php" >MyAccount</a>
+                                </li>
                             '; }
                         ?>
                          <li class="nav-item">
