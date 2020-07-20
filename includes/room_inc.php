@@ -7,6 +7,7 @@ class Room extends Db{
     
 protected function getAllRooms(){
     
+    
 }   
     
 protected function getRoomsByDateAndType($date_in,$date_out,$type){
@@ -54,22 +55,26 @@ protected function isRoomAvailable($id,$date_in,$date_out){
                  /*
                  3-4
                 8-10
-                6-11                      reserved period
+                6-11                      
                 ------------------ in 5 ------------------ out 7-------------------
-                 the room will be availbel if 
-                user reservation:  exists reservation  
-                date in > date out 
-                date out < date in
+                 the room will be resereved  if 
+                       existense date || user entered date 
+                   1) date in = date in   and date out = date out 
+                   
+                   2) date in > date in  and date in < date out
+                   
+                   3) date out > date in   and date out < date out 
                 */
-                // the below query check for available periods
-                     $sql2="SELECT * FROM reservations WHERE room_id= '$id'  And (  date_in>'$date_out' or date_out< '$date_in')";
+                // the below query check for reservations  it will return reservations 
+                  $sql2="SELECT * FROM reservations WHERE room_id= '$id'  And (  (date_in = '$date_in' And  date_out = '$date_out') or (date_in >= '$date_in' And date_in<= '$date_out') or (date_out >= '$date_in' And date_out <= '$date_out') )   ";
+
                     $result= $db->query($sql2);
                     $numRows2=$result->num_rows;
                      if($numRows2>0){
-                            
-                            return true;
+                         // if $numRows2>0  then the room is reserved (not available )
+                            return false;
                         }else{
-                          return false;
+                          return true;
                         }
                  
                 } else{

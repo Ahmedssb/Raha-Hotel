@@ -55,7 +55,6 @@ $(document).ready(function(){
        success: function(resp){
             var len = resp.length;
            var container_div =document.getElementById('container_div');
-           var room_div = document.createElement('div');
 
           // for each ajax request delete all div content and create it again
            var child = container_div.lastElementChild; 
@@ -70,13 +69,15 @@ $(document).ready(function(){
                    // check if resp empty then display message there is no available room
                      var i;
                      for( i=0; i< len ;i++){
-                            
+                                       var room_div = document.createElement('div');
+
                              room_div.className="row  room-div";
 
                             // container_div.removeChild(node);
                              console.log(resp[i].type);
                               room_div.innerHTML=" <div class='col-md-4'> <img src='../roomImages/"+resp[i].image+" ' class='img-fluid'  ></div><div class='col-md-4'><h5>"+resp[i].type+"</h5><table><tr><td>"+resp[i].price+" $/day</td</tr><tr><td>size</td><td>capacity</td></tr> <tr><td>"+resp[i].size+"</td><td>"+resp[i].capacity+"</td>    </tr>  <tr><td>beeedd</td> </tr><tr><td>"+resp[i].bed+"</td></tr>  <tr>  <td><a href='single_room_view.php?rid="+resp[i].id+" '>View Details</a></td>   </tr>   </table>    </div>";
                               console.log(room_div.className);
+                                                           console.log(i);
 
                              container_div.append(room_div);   
                             }
