@@ -10,11 +10,14 @@ protected function getAllRooms(){
     
 }   
     
-protected function getRoomsByDateAndType($date_in,$date_out,$type){
+protected function getRoomsByDateAndType($date_in,$date_out,$type,$offset){
     
      // get connection from Db class
+    
+    $total_records_per_page=3;
+    
          $db = $this->connect();
-         $sql="SELECT * FROM rooms WHERE type = '$type' ";
+         $sql="SELECT * FROM rooms WHERE type = '$type' LIMIT $offset, $total_records_per_page ";
     
         $result= $db->query($sql);
         $numRows=$result->num_rows;
@@ -146,8 +149,15 @@ public function getReservationData($id){
             }
     
 }
-
-
+public function getTotalNumOfRooms(){
+      $db = $this->connect();
+    $sql="SELECT COUNT(*) As total_records FROM rooms";
+    $result= $db->query($sql);
+    $total_records = $result->fetch_array();
+    $total_records = $total_records['total_records'];
+    
+    return $total_records;
+}
 
 //this function convert multudimensiol array into single array 
 function array_flatten($array) { 

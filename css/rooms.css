@@ -154,6 +154,25 @@
 .tabcontent{
     padding-top: 30px;
 }
+.pagenation-div{
+  padding: 5px 20px;  
+} 
+.pagenation-div .page-div{
+    padding: 20px 10px ;
+    border-top: dotted 1px #CCC;
+}
+.pagenation-div .page-div strong{
+    color:#1cc3b2; 
+}
+.pagenation-div a{
+    padding:  10px ;
+    margin-right: 5px;
+    color: #FFF;
+    font-size: 18px;
+    background-color: #0e2737;
+    border-radius: 45%;
+}
+/* start footer style */
 footer{
     background-color: #0e2737;
      

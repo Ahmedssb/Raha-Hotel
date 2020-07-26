@@ -1,11 +1,39 @@
 
 $(document).ready(function(){
      
+$('#checkRoom').on('click', function(e){
+     /* check for date_in and date_out if date_in is greater then display alert using sweet alert library  */
+      var date_in = $('#date_in').val();
+       var date_out = $('#date_out').val();
+         if(date_in>date_out){
+           swal({
+               text: "Date Out Must Be Greater Than Date In!",
+              icon: "error",
+            })
+			 $('#date_in').focus();
+			    return false;
+ 
+       }
+    
+     });
+});
+
+$(document).ready(function(){
+     
      $('#check_btn').on('click', function(e){
     //Stop the form from submitting itself to the server.
     e.preventDefault();
      var date_in = $('#date_in').val();
      var date_out = $('#date_out').val();
+     if(date_in>date_out){
+           swal({
+               text: "Date Out Must Be Greater Than Date In!",
+              icon: "error",
+            })
+			 $('#date_in').focus();
+			    return false;
+ 
+       }
      var id = $('#id').val();
     $( "#not_available_pra" ).css( "display","none" );    
     $.ajax({
@@ -45,6 +73,15 @@ $(document).ready(function(){
     e.preventDefault();
      var check_in = $('#check_in').val();
      var check_out = $('#check_out').val();
+      if(check_in>check_out){
+           swal({
+               text: "Date Out Must Be Greater Than Date In!",
+              icon: "error",
+            })
+			 $('#check_in').focus();
+			    return false;
+ 
+       }
      var type = $('#type').val(); 
         
      $.ajax({
@@ -69,7 +106,7 @@ $(document).ready(function(){
                    // check if resp empty then display message there is no available room
                      var i;
                      for( i=0; i< len ;i++){
-                                       var room_div = document.createElement('div');
+                            var room_div = document.createElement('div');
 
                              room_div.className="row  room-div";
 
@@ -278,6 +315,8 @@ function checkPassword(){
 }
  });
     
+
+
     
 
 

@@ -102,8 +102,8 @@
               
         <tr>
           <form method="post" action="classes/getRoom.php">    
-              <td> <input type="date" name="date_in" required></td>      
-              <td><input type="date" name="date_out" required></td>      
+              <td> <input type="date" name="date_in" id="date_in" required></td>      
+              <td><input type="date" name="date_out" id="date_out" required></td>      
                <td class="medium-td" > 
                  <select name="type"  required>
                    <option value="single">Single Room</option>   
@@ -112,7 +112,7 @@
                 </select>
               
               </td>      
-              <td class="medium-td" ><input type="submit" value="check" name="checkRoom"></td>      
+              <td class="medium-td" ><input type="submit" value="check" name="checkRoom" id="checkRoom"></td>      
           </form>    
         </tr>      
          
@@ -125,8 +125,8 @@
             </tr>
               
         <tr>
-          <td> <input type="date"></td>      
-          <td><input type="date"></td>         
+          <td> <input type="date"  id="date_in"></td>      
+          <td><input type="date" id="date_out"></td>         
               
         </tr> 
         <tr>
@@ -238,45 +238,22 @@
     
 </div>    
 <!-- start footer -->
+<?php  
+    include_once('views/footer_view.php');
     
-<footer>
- <div class="container">
-    <div class="row"> 
-    <div class="col-md-4">
-        <h6>Raha Hotel</h6>
-        <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-     </div>
-     
-     <div class="col-md-4">
-        <h6>Contact Information</h6>  
-         <p>291 South 21th Street,
-          ALKhobar
-         </p>
-         <p>+ 966 5041598658  </p>
-         <p>info@raha.com</p>
- 
-     </div>
+    ?>    
     
-      <div class="col-md-4">
-        <h6>Message</h6>  
-          <form>
-           <textarea rows="4" cols="40"></textarea>
-           <input type="submit"  value="Submit">     
-          </form>
-     </div>
-        
-    </div>
-  </div> 
-    
-
-    
-    
-</footer>    
 
  <script src="js/jquery-3.4.1.js"></script>
  <script src="js/popper.min.js"></script>
  <script src="js/bootstrap.min.js"></script>   
  <script src="js/main.js"></script>
+ <script  src="js/sweetalert.min.js"></script> 
+<script>
+var date_in_field = document.getElementById('date_in');
+             date_in=  date_in_field.value;
+var date_out = document.getElementById('date_out').value;
+ </script>    
 </body>
 
 </html>

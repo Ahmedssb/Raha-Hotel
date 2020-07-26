@@ -23,37 +23,9 @@
 <div id="home">
        <!-- start nav -->
      <nav class="navbar  navbar-light   navbar-expand-md custom-nav">
-         <div class="container-fluid">
-             <a class="navbar-brand" href="../index.php"><img src="../img/raha.png"></a>
-             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"> 
-                 <span class="navbar-toggler-icon" style="color: red;"></span>
-             </button>
-             <div class="collapse navbar-collapse" id="menu">
-                    <ul class="navbar-nav  ml-auto" >
-                        <li class="nav-item">
-                           <a class="nav-link custom-nav-link lang" href="#home" key="home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#services" key="services">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#about" key="about">About</a>
-                        </li>     
-                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#why" key="why">Why Us</a>
-                        </li>  
-                        <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#contact" key="contact">Contact</a>
-                        </li>  
-                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link translate" href="#" id="en">English</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link translate" href="#" id="ar">العربية</a>
-                        </li>
-                    </ul>
-             </div>      
-         </div>
+             <?php 
+          include_once('header_view.php');
+         ?>
      </nav> <!-- end nav-->
 
     <!-- start landing page -->
@@ -149,39 +121,10 @@
   
 <!-- start footer -->
     
-<footer>
- <div class="container">
-    <div class="row"> 
-    <div class="col-md-4">
-        <h6>Raha Hotel</h6>
-        <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-     </div>
-     
-     <div class="col-md-4">
-        <h6>Contact Information</h6>  
-         <p>291 South 21th Street,
-          ALKhobar
-         </p>
-         <p>+ 966 5041598658  </p>
-         <p>info@raha.com</p>
- 
-     </div>
+<?php  
+    include_once('../views/footer_view.php');
     
-      <div class="col-md-4">
-        <h6>Message</h6>  
-          <form>
-           <textarea rows="4" cols="40"></textarea>
-           <input type="submit"  value="Submit">     
-          </form>
-     </div>
-        
-    </div>
-  </div> 
-    
-
-    
-    
-</footer>    
+    ?>   
 
  <script src="js/jquery-3.4.1.js"></script>
  <script src="js/popper.min.js"></script>

@@ -5,15 +5,11 @@ include '../includes/room_inc.php';
 class GetRoom extends Room{
 
 
-public function checkroom($date_in,$date_out,$type){
+public function checkroom($date_in,$date_out,$type,$offset){
     
-   $avilable_rooms= $this->getRoomsByDateAndType($date_in,$date_out,$type);
+   $avilable_rooms= $this->getRoomsByDateAndType($date_in,$date_out,$type,$offset);
     
-    /* foreach($avilable_rooms as $room){
-         
-         print_r ($room);
-         echo "<br>";
-     }*/
+   
      return $avilable_rooms;
 }
     
@@ -53,6 +49,13 @@ public function roomInfo($id){
          }
           
         }
+
+  // offset for pagenation  
+        if(isset($_GET['offset'])){
+            $offset = $_GET['offset'];
+        }else{
+            $offset=0;
+        }
 // if is set  call the fun  from the  class above 
       if(isset($_POST['checkRoom'])){
           
@@ -60,11 +63,14 @@ public function roomInfo($id){
         $date_in = $_POST['date_in'];
         $date_out = $_POST['date_out'];
         $type = $_POST['type'];
+       
            
-          
           $room = new GetRoom();
           // call fun checkroom
-         $availableRooms=$room->checkroom($date_in,$date_out,$type);
+         $availableRooms=$room->checkroom($date_in,$date_out,$type,$offset);
+          $_SESSION['date_in']=$date_in;
+          $_SESSION['date_out']=$date_out;
+          $_SESSION['type']=$type;
          $_SESSION['rooms'] = $availableRooms;
           
           header("Location: ../views/rooms_view.php");
@@ -73,8 +79,7 @@ public function roomInfo($id){
         }
     
 
-
-// if is set  call the fun  from the  class above 
+// if is set check in coming from ajax request   call the fun  from the  class above 
       if(isset($_POST['check_in'])){
           
         // get the data from the form 
@@ -85,11 +90,11 @@ public function roomInfo($id){
           
          $room = new GetRoom();
           // call fun checkroom
-         $availableRooms=$room->checkroom($date_in,$date_out,$type);
+         $availableRooms=$room->checkroom($date_in,$date_out,$type,$offset);
          
          $availableRooms=json_encode($availableRooms);
           echo $availableRooms;
-         die;
+            die;
            
            
    
