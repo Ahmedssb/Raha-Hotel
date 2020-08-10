@@ -26,13 +26,25 @@ if(isset($_SESSION['date_in']) and isset($_SESSION['date_out'])){
     $date_out=$_SESSION['date_out'];
 
  }
-
+  // language 
+if(isset($_GET['lang']) && !empty($_GET['lang'])){
+    // intilaize session 
+     $_SESSION['lang'] = $_GET['lang'];
+}else{
+         $_SESSION['lang'] ="en";
+}
+// Include Language file
+if(isset($_SESSION['lang'])){
+ include "../lang/lang_".$_SESSION['lang'].".php";
+}else{
+ include "../lang/lang_en.php";
+}
   
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="<?php echo $lang['lang_dir']; ?>">
 <head>
- <title>Hotel</title>  
+ <title><?php echo $lang['web_title']; ?></title>  
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Raha Hotel   ">
@@ -69,7 +81,7 @@ if(isset($_SESSION['date_in']) and isset($_SESSION['date_out'])){
     <!-- start landing page caption -->
      <div class="caption center-block text-center">
           
-         <h4>Book Your Room</h4>  
+         <h4><?php echo $lang['book_room_title']; ?></h4>  
          
      </div> 
  
@@ -86,24 +98,24 @@ if(isset($_SESSION['date_in']) and isset($_SESSION['date_out'])){
        </div>
       <div class="col-md-6 table-responsive">
           <div  style="text-align: center">  
-                <h5>Personal Info</h5> 
+                <h5><?php echo $lang['personal_info']; ?></h5> 
          </div>  
           <table class="table table-striped table-hover">
             <tr>
-               <td>First Name</td> 
+               <td><?php echo $lang['first_name']; ?></td> 
                <td><?php  echo $user_data["firstName"]?></td>
             </tr>
             <tr>
-               <td>Last Name</td> 
+               <td><?php echo $lang['last_name']; ?></td> 
                <td><?php  echo $user_data["lastName"]?></td>
             </tr>
             <tr>
-               <td>Email</td> 
+               <td><?php echo $lang['email']; ?></td> 
                <td><?php  echo $user_data["email"]?></td>
             </tr>
             </table>
         <div  style="text-align: center">  
-        <h5>Room Info</h5> 
+        <h5><?php echo $lang['room_info']; ?></h5> 
        </div>  
           
      <table class="table table-striped table-hover">
@@ -113,19 +125,19 @@ if(isset($_SESSION['date_in']) and isset($_SESSION['date_out'])){
            
              echo'
                     <tr>
-                       <td>Type</td> 
-                       <td>'.$room_info["type"].'</td>
+                       <td>'.$lang['check_room_type'].'</td> 
+                       <td>'.$room_info["type_".$_SESSION['lang']].'</td>
                     </tr>
                     <tr>
-                       <td>Size</td> 
+                       <td>'.$lang['room_size'].'</td> 
                        <td>'.$room_info["size"].' ft</td>
                     </tr>
                     <tr>
-                       <td> Capacity</td> 
-                       <td>'.$room_info["capacity"].' person</td>
+                       <td> '.$lang['room_capacity'].'</td> 
+                       <td>'.$room_info["capacity"].' '.$lang['person'].' </td>
                     </tr>
                     <tr>
-                       <td>price per day</td> 
+                       <td> '.$lang['room_price'].'</td> 
                        <td>'.$room_info["price"].' $</td>
                     </tr>';
              
@@ -133,30 +145,37 @@ if(isset($_SESSION['date_in']) and isset($_SESSION['date_out'])){
           </table>
           
          <div  style="text-align: center">  
-        <h5>Bill Info</h5> 
+        <h5><?php echo $lang['bill_info'] ;?></h5> 
        </div>        
      <table class="table table-striped table-hover">
 
             <tr>
-               <td>Date In</td> 
+               <td><?php echo $lang['check_date_in']; ?></td> 
                <td><?php echo $date_in; ?></td>
             </tr>
             <tr>
-               <td>Date Out</td> 
+               <td><?php echo $lang['check_date_out'] ;?></td> 
                <td><?php echo $date_out ; ?></td>
             </tr>
             <tr>
-               <td> Total Price</td> 
-               <td><?php 
-                   // calculate the diferent between to dates after converting them from string to date 
-                   $diff = (strtotime($date_out)- strtotime($date_in));
-                   /* 1 day = 24h  
-                      24 * 60 * 60 = 86400 seconds
-                   */
-                   $num_days = abs(round($diff/86400));
-                   $total = $num_days*$room_info["price"];
-                   echo $total;
-                   ?></td>
+               <td> <?php echo $lang['total_price']; ?></td> 
+               <td>
+                   <?php 
+                   // calculate the diferent between two dates after converting them from string to date 
+                       $diff = (strtotime($date_out)- strtotime($date_in));
+                       /* 1 day = 24h  
+                          24 * 60 * 60 = 86400 seconds
+                       */
+
+                       $num_days = abs(round($diff/86400));
+                        // in case date_in and date_out are the same
+                         if($diff == 0){
+                          $num_days=1; 
+                         }
+                       $total = $num_days*$room_info["price"];
+                       echo $total;
+                   ?>
+                </td>
             </tr>
         
           </table>
@@ -167,8 +186,8 @@ if(isset($_SESSION['date_in']) and isset($_SESSION['date_out'])){
           $_SESSION['uid']=$user_data['id'];
           
           ?>
-         <div class="book-div" style="text-align: center">
-             <a href="thanks_view.php"> <button type="button">Book</button>  </a>
+         <div class="book-div" >
+             <a href="thanks_view.php"> <button type="button"><?php echo $lang['book_btn']; ?></button>  </a>
         </div>
       </div>
     

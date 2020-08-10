@@ -16,17 +16,28 @@ if(isset($_SESSION['logged'])){
      $room_obj = new Room();
      
      $reservation_id =$room_obj->makeResevation($_SESSION['rid'], $_SESSION['uid'],$_SESSION['date_in'],$_SESSION['date_out'],$_SESSION['bill']);
-     
-     
+  // language 
+if(isset($_GET['lang']) && !empty($_GET['lang'])){
+    // intilaize session 
+     $_SESSION['lang'] = $_GET['lang'];
+}else{
+         $_SESSION['lang'] ="en";
+} 
+// Include Language file
+if(isset($_SESSION['lang'])){
+ include "../lang/lang_".$_SESSION['lang'].".php";
+}else{
+ include "../lang/lang_en.php";
+}     
      
  }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="<?php echo $lang['lang_dir']; ?>">
 <head>
- <title>Hotel</title>  
+ <title><?php echo $lang['web_title']; ?></title>   
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Raha Hotel   ">
@@ -62,7 +73,7 @@ if(isset($_SESSION['logged'])){
     <!-- start landing page caption -->
      <div class="caption center-block text-center">
           
-         <h4>Thanks</h4>  
+         <h4><?php echo $lang['thanks_title'] ?></h4>  
          
      </div> 
  
@@ -74,11 +85,10 @@ if(isset($_SESSION['logged'])){
 
  
    <div class="row" style="padding: 5px 0px;" >
-              <div class="col-md-4">
-               </div>
-       <div class="col-md-5 thanks-div">
-          <p class="thanks-pra">Thanks Your Reservation Has Been Placed</p>
-           <span> Your Reservation Num Is<strong><?php echo $reservation_id;?> </strong> and total cost is <strong><?php  echo $_SESSION['bill'];?>$</strong>  </span>   
+             
+       <div class="col-md-5  thanks-div">
+          <p class="thanks-pra"><?php echo $lang['thanks_pra']; ?></p>
+           <span> <?php echo $lang['reservation_num']; ?><strong><?php echo " ".$reservation_id;?> </strong> <?php echo $lang['total_coast']; ?> <strong><?php  echo $_SESSION['bill'];?>$</strong>  </span>   
        </div>
        
     
@@ -97,10 +107,14 @@ if(isset($_SESSION['logged'])){
     
     ?>   
 
- <script src="js/jquery-3.4.1.js"></script>
- <script src="js/popper.min.js"></script>
- <script src="js/bootstrap.min.js"></script>   
- <script src="js/main.js"></script>
+ <script src=".../js/jquery-3.4.1.js"></script>
+ <script src="../js/popper.min.js"></script>
+ <script src="../js/bootstrap.min.js"></script>   
+ <script src="../js/main.js"></script>
+<!-- disable browser prev button -->    
+ <script>
+   window.history.forward();
+ </script>     
 </body>
 
 </html>

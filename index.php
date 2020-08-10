@@ -1,28 +1,45 @@
 <?php 
    session_start();
+  // check if user logged or not 
   if(isset($_SESSION['logged'])){
      $logged=$_SESSION['logged'];
       $email=$_SESSION['email'];
    }
- 
+
+  // language 
+if(isset($_GET['lang']) && !empty($_GET['lang'])){
+    // intilaize session 
+     $_SESSION['lang'] = $_GET['lang'];
+}else{
+    // intilaize defualt session 
+     $_SESSION['lang'] = "en";
+}
+
+// Include Language file
+if(isset($_SESSION['lang'])){
+ include "lang/lang_".$_SESSION['lang'].".php";
+}else{
+ include "lang/lang_en.php";
+}
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="<?php echo $lang['lang_dir']; ?>">
 <head>
- <title>Hotel</title>  
+ <title><?php echo $lang['web_title']; ?></title>  
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Raha Hotel   ">
-<meta name="keywords" content="Hotel   ">
+ <meta name="description" content="Raha Hotel   ">
+ <meta name="keywords" content="Hotel  rooms  ">
     
  <link rel="stylesheet" href="css/bootstrap.min.css">
  <link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="icon" href="/img/raha.png" type="image/png" sizes="20x20">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link rel="icon" href="img/raha.png" type="image/png" sizes="20x20">
 
   
 </head>
-<body>
+<body  >
 
     
    <!-- start home section -->
@@ -34,27 +51,37 @@
              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"> 
                  <span class="navbar-toggler-icon" style="color: red;"></span>
              </button>
+             
              <div class="collapse navbar-collapse" id="menu">
                     <ul class="navbar-nav  ml-auto" >
                         <li class="nav-item">
-                           <a class="nav-link custom-nav-link lang" href="#home" key="home">Home</a>
+                           <a class="nav-link custom-nav-link lang" href="#home" key="home"><?php echo $lang['menu_home']; ?></a>
                         </li>
                        
                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="#about" key="about">About</a>
-                        </li>     
-                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="views/login_view.php" key="why">Login</a>
-                        </li>  
-                        <li class="nav-item">
-                            <a class="nav-link custom-nav-link lang" href="views/register_view.php" key="contact">Register</a>
-                        </li>  
+                            <a class="nav-link custom-nav-link lang" href="#about" key="about"><?php echo $lang['menu_about']; ?></a>
+                        </li> 
+                        <?php 
+                          if(!isset($_SESSION['logged'])){
+                             echo '
+                                 <li class="nav-item">
+                                    <a class="nav-link custom-nav-link lang" href="views/login_view.php">'.$lang['menu_login'].'</a>
+                                </li> ';
+                              }
+                         if(!isset($_SESSION['logged'])){
+
+                            echo '    
+                                <li class="nav-item">
+                                    <a class="nav-link custom-nav-link lang" href="views/register_view.php" >'.$lang['menu_register'].'</a>
+                                </li>'; 
+                              }
+                         ?>
                         <?php
                               if(isset($_SESSION['logged'])) {
                                   
                                echo '
                               <li class="nav-item">
-                                <a class="nav-link custom-nav-link translate" href="views/logout.php" >Logout</a>
+                                <a class="nav-link custom-nav-link translate" href="views/logout.php" >'.$lang['menu_logout'].'</a>
                               </li>
                             '; }
                         ?>
@@ -64,16 +91,17 @@
                                   
                                echo '
                                 <li class="nav-item">
-                                <a class="nav-link custom-nav-link translate" href="views/user_profile_view.php" >MyAccount</a>
+                                <a class="nav-link custom-nav-link translate" href="views/user_profile_view.php" >'.$lang['menu_my_account'].'</a>
                                 </li>
                             '; }
                         ?>
-                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link translate" href="#" id="en">English</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link custom-nav-link translate" href="#" id="ar">العربية</a>
-                        </li>
+                             <!-- Language -->
+                         <form method='get' action='#' id='form_lang' >
+                              <select name='lang' onchange='changeLang();' class="nav-item nav-link custom-nav-link" >
+                               <option value='en' <?php if(isset($_SESSION['lang']) && $_SESSION['lang'] == 'en'){ echo "selected"; } ?> >English</option>
+                               <option value='ar' <?php if(isset($_SESSION['lang']) && $_SESSION['lang'] == 'ar'){ echo "selected"; } ?> >العربية</option>
+                              </select>
+                         </form>
                     </ul>
              </div>      
          </div>
@@ -82,9 +110,9 @@
     <!-- start landing page -->
      <div class="landing">
         <div class="home-wrap">
-          <div class="home-inner">
+              <div class="home-inner">
 
-          </div> 
+              </div> 
         </div>
 
      </div> <!-- end landing page -->
@@ -93,73 +121,70 @@
      <div class="caption center-block text-center">
           
           <table class="large-screen-table">
-           <tr>
-                <th >Check in</th>  
-                <th>check out</th>   
-                <th>Room</th>   
-                <th>Check Availabilatiy</th>   
-             </tr>
-              
-        <tr>
-          <form method="post" action="classes/getRoom.php">    
-              <td> <input type="date" name="date_in" id="date_in" required></td>      
-              <td><input type="date" name="date_out" id="date_out" required></td>      
-               <td class="medium-td" > 
-                 <select name="type"  required>
-                   <option value="single">Single Room</option>   
-                   <option value="double">Double Room</option>   
-                   
-                </select>
-              
-              </td>      
-              <td class="medium-td" ><input type="submit" value="check" name="checkRoom" id="checkRoom"></td>      
-          </form>    
-        </tr>      
+                   <tr>
+                        <th ><?php echo $lang['check_date_in']; ?></th>  
+                        <th><?php echo $lang['check_date_out']; ?></th>   
+                        <th><?php echo $lang['check_room_type']; ?></th>   
+                      </tr>
+
+                  <tr>
+                      <form method="post" action="classes/getRoom.php">    
+                          <td> <input type="date" name="date_in" id="date_in" required></td>      
+                          <td><input type="date" name="date_out" id="date_out" required></td>      
+                           <td class="medium-td" > 
+                             <select name="type"  required>
+                               <option value="single"><?php echo $lang['single_room']; ?></option>   
+                               <option value="double"><?php echo $lang['double_room']; ?></option>   
+                            </select>
+                          </td>      
+                          <td class="medium-td" ><input type="submit" value="<?php echo $lang['check_btn']; ?>" name="checkRoom" id="checkRoom"></td>      
+                      </form>    
+                </tr>      
          
           </table>
-         
+          <!-- start phone-screen-table   -->
           <table class="phone-screen-table">
-           <tr>
-                <th >Check in</th>  
-                <th>check out</th>    
-            </tr>
-              
-        <tr>
-          <td> <input type="date"  id="date_in"></td>      
-          <td><input type="date" id="date_out"></td>         
-              
-        </tr> 
-        <tr>
-          <td>Room</td>   
-           <td>type</td>   
-        </tr>      
-         <tr>
-          <td ><input type="number"></td>      
-          <td ><input type="text"  ></td>      
-         </tr>
-        <tr>
-        <td colspan="2">check ava</td>
+               <tr>
+                    <th ><?php echo $lang['check_date_in']; ?></th>  
+                    <th><?php echo $lang['check_date_out']; ?></th>    
+                </tr>
+             <form method="post" action="classes/getRoom.php">    
 
-        </tr> 
-        <tr>
-                  <td colspan="2" class="medium-td" ><input type="button" value="check" ></td>
-     
-        </tr>      
+                <tr>
+                      <td> <input type="date" name="date_in" id="date_in" required></td>      
+                      <td><input type="date" name="date_out" id="date_out" required></td>         
+                </tr> 
+                <tr >
+                    <td colspan="2" ><?php echo $lang['check_room_type']; ?></td>   
+                </tr> 
+                <tr>
+                    <td colspan="2" > 
+                         <select name="type"  required>
+                           <option value="single"><?php echo $lang['single_room']; ?></option>   
+                           <option value="double"><?php echo $lang['double_room']; ?></option>   
+                        </select>
+
+                     </td>   
+                </tr>
+                <tr>
+                   <td colspan="2" class="medium-td" ><input type="submit" value="<?php echo $lang['check_btn']; ?>" name="checkRoom" id="checkRoom" ></td>
+                </tr>   
+              </form>    
           </table>
          
      </div> 
-      <a class="btn btn-outline-light  start-btn lang" key="start"  href="#about">Get Started</a>
+      <a class="btn btn-outline-light  start-btn "   href="#about"><?php echo $lang['page_caption']; ?></a>
 
-</div> <!-- end home section -->
+     </div> <!-- end home section -->
     
-<!-- start section --->
+<!-- start about section --->
 
-<div id=""  class="container" style="padding-top:15%;">
+<div id="about"  class="container" style="padding-top:15%;">
   <div  class="row"  >
     
-      <div class="col-md-6" >
-        <h2>Welcome to Raha hotel</h2>
-        <h6 class="about-pra">With over 340 hotels worldwide, NH Hotel Group offers a wide variety of hotels catering for a perfect stay no matter where your destination.</h6>
+      <div class="col-md-6"  style="text-align:center">
+        <h2><?php echo $lang['about_title']; ?></h2>
+        <h6 class="about-pra"><?php echo $lang['about_pra']; ?></h6>
       </div>
       
       <div class="col-md-6">
@@ -178,12 +203,11 @@
   </div>  
  
  <div class="row">
-    <div class="col-md-1     " ></div>  
-    <div class="col-md-3 services-box  " >
+     <div class="col-md-3 services-box  " >
         <div class="card  services-box-card">
           <img class="card-img-top service-img" src="img/icon-3.png">
           <div class="card-body">
-            <h4 class="card-title">Food</h4> 
+            <h4 class="card-title"><?php echo $lang['about_food']; ?></h4> 
           </div>         
         </div>
     </div>  
@@ -191,7 +215,7 @@
       <div class="card services-box-card">
           <img class="card-img-top service-img" src="img/icon-1.png">
           <div class="card-body">
-            <h4 class="card-title">Transportion</h4> 
+            <h4 class="card-title"><?php echo $lang['about_trans']; ?></h4> 
           </div>         
         </div> 
       
@@ -200,43 +224,43 @@
      <div class="card services-box-card">
           <img class="card-img-top service-img" src="img/icon-2.png">
           <div class="card-body">
-            <h4 class="card-title" >Relax</h4> 
+            <h4 class="card-title" ><?php echo $lang['about_relax']; ?></h4> 
           </div>         
         </div>  
      
    </div>    
-  
- </div>    
+  </div>    
     
     
 </div>    
   
-<!-- start -->    
+<!-- start  image section-->    
 <div class="container-fluid">
   <div class="row">
       
         <div class="col-md-4 no-padding ">
             <img src="img/5.jpg" class="img-fluid  " style="height:450px;">
-            <div class="hidden-text animated-div"><h5>Relax</h5></div>
+            <div class="hidden-text animated-div"><h5><?php echo $lang['card_pra']; ?></h5></div>
             <div class="hidden-div"></div>
          </div>
 
         <div class="col-md-4 no-padding">
             <img src="img/2.jpg" class="img-fluid" style="height:450px;">
-            <div class="hidden-text animated-div"><h5>Relax</h5></div>
+            <div class="hidden-text animated-div"><h5><?php echo $lang['card_pra']; ?></h5></div>
             <div class="hidden-div"> </div>
         </div>
 
         <div class="col-md-4 no-padding">
             <img src="img/25.jpg"  class="img-fluid" style="height:450px;">
-            <div class="hidden-text animated-div"><h5>Relax</h5></div>
+            <div class="hidden-text animated-div"><h5><?php echo $lang['card_pra']; ?></h5></div>
             <div class="hidden-div"> </div>
         </div>
 
   </div>    
     
     
-</div>    
+</div>   
+    
 <!-- start footer -->
 <?php  
     include_once('views/footer_view.php');

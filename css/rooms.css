@@ -74,7 +74,7 @@
      text-align: center;
      box-shadow: 0 2px 14px 5px rgba(30, 30, 30, 0.09);
     border-radius: 25px;
-    padding: 31% 10px;
+    padding: 15% 10px;
     border-collapse: separate;
     text-transform: capitalize;
  
@@ -90,18 +90,25 @@
     color: #FFF;
     border-radius: 20px;
 }
+.single-room-table td button{
+    padding: 10px 50px;
+    background-color: #1cc3b2;
+     border: none;
+    color: #FFF;
+    border-radius: 20px;
+}
 
 .room-service-table{
       text-align: center;
      box-shadow: 0 2px 14px 5px rgba(30, 30, 30, 0.09);
     border-radius: 25px;
-    padding: 10% 10px;
+    padding: 10% 2px;
     border-collapse: separate;
     text-transform: capitalize;
  
 }
 .room-service-table td{
-   padding: 5px 45px; 
+   padding: 5px 40px; 
 }
 
 .error{
@@ -122,12 +129,13 @@
     margin-top: 5px;
     display: flex; 
     position: relative;
-    left: 35%;
+    margin: 0 auto ;
 }
 
 /* thanks_view css  */
 .thanks-div{
-    padding: 30px 0px;
+    padding: 30px 15px;
+    margin: 0 auto;
 }
 .thanks-div p{
     color: #1cc3b2;
@@ -143,16 +151,28 @@
     padding: 10px 2px;
 }
 .profile-tab button{
-    width: 100%;
+    width: 89%;
     border: none;
      background-color:  #1cc3b2;
     color: #fff;
-    padding: 10px 5px;
+    padding: 10px 0 ;
     font-size: 18px;
     border-radius: 20px;
 }
 .tabcontent{
     padding-top: 30px;
+    text-align: center;
+}
+.tabcontent div{
+        margin: 0 auto;
+
+}
+.tabcontent button{
+    margin-top: 5px;
+    padding: 5px 20px;
+}
+.tabcontent input{
+    text-align: center;
 }
 .pagenation-div{
   padding: 5px 20px;  
@@ -189,4 +209,38 @@ footer div input[type=submit]{
     padding: 5px 50px;
     margin-top: 5px;
     display: block;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+ 
+.filter-table td {
+    width: 75%;
+    margin: 0;
+} 
+.filter-table td input{
+    width: 75%;
+}
+.room-service-table{
+     }
+.room-service-table td{
+   padding: 5px 20px; 
+font-size: 13px;    
+}
+.empty-div{
+  display: none;
+    }
+.single-room-table {
+    padding: 10% 0;
+    border-collapse: separate;
+    text-transform: capitalize;
+ 
+}
+.single-room-table td{
+    padding: 10px 5px;
+    
+}
+.single-room-table td input{
+  width: 75%;    
+} 
 }

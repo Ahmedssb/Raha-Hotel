@@ -1,5 +1,5 @@
 <?php 
-include_once('../classes/getRoom.php');
+ include_once('../classes/getRoom.php');
 
  // if user logged otherwise  redirect it to the login page 
 if(isset($_SESSION['logged'])){
@@ -15,6 +15,20 @@ if(isset($_SESSION['rooms'])){
         $rooms = $_SESSION['rooms'];
           
     }
+  // language 
+if(isset($_GET['lang']) && !empty($_GET['lang'])){
+    // intilaize session 
+     $_SESSION['lang'] = $_GET['lang'];
+}else{
+         $_SESSION['lang'] ="en";
+
+}
+// Include Language file
+if(isset($_SESSION['lang'])){
+ include "../lang/lang_".$_SESSION['lang'].".php";
+}else{
+ include "../lang/lang_en.php";
+}
 
 //***************************************************************
 // start of pagenation code 
@@ -54,13 +68,13 @@ $second_last = $total_no_of_pages - 1; // total pages minus 1
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
- <title>Hotel</title>  
+ <title><?php echo $lang['web_title']; ?></title>   
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Raha Hotel   ">
-<meta name="keywords" content="Hotel   ">
+ <meta name="description" content="Raha Hotel   ">
+ <meta name="keywords" content="Hotel   ">
  
  <link rel="stylesheet" href="../css/bootstrap.min.css">
  <link rel="stylesheet" href="../css/rooms.css">
@@ -95,7 +109,7 @@ $second_last = $total_no_of_pages - 1; // total pages minus 1
     <!-- start landing page caption -->
      <div class="caption center-block text-center">
           
-         <h4>Our Rooms</h4>  
+         <h4><?php echo $lang['room_page_title']; ?></h4>  
          
      </div> 
  
@@ -104,38 +118,41 @@ $second_last = $total_no_of_pages - 1; // total pages minus 1
     
 <!-- start rooms section -->
 <div class="container" style="padding: 30px 0px;"  id="container_div" >
-    <div class="row"  id="refine_div">
-        <div class="col-md-4">
+    <div class="row"  id="refine_div" style="padding-bottom:30px">
+        <div class="col-3  empty-div"></div>
+        <div class="col-4 " style="padding:10px;">
 
-            <table  class="filter-table">
-            <form method="post" action="">    
-              <caption style="caption-side: top;text-align: center">Refine</caption>    
-              <tr>
-                <td>Check in</td>
-                <td>check out</td>
-              </tr>
-              <tr>
-                <td><input type="date" id="check_in" name="check_in"></td>
-                 <td><input type="date" id="check_out" name="check_out"></td>
+            <table  class="filter-table ">
+                <form method="post" action="">    
+                      <caption style="caption-side: top;text-align: center"><?php echo $lang['refine_title']; ?></caption>    
+                      <tr>
+                        <td><?php echo $lang['check_date_in']; ?></td>
+                        <td><?php echo $lang['check_date_out']; ?></td>
+                      </tr>
+                      <tr>
+                        <td><input type="date" id="check_in" name="check_in"></td>
+                         <td><input type="date" id="check_out" name="check_out"></td>
 
-              </tr>
-              <tr>
-                <td colspan="2">Type</td>  
-              </tr>    
-              <tr>
-                <td colspan="2">
-                    <select name="type"  id="type"  name="type"  required>
-                   <option value="single">Single Room</option>   
-                   <option value="double">Double Room</option>   
-                   
-                </select>
-                  </td>  
-              </tr>    
-              <tr>
-               <td  colspan="2"  ><input type="submit" value="check" id="rooms_check"></td>  
+                      </tr>
+                      <tr>
+                        <td colspan="2"><?php echo $lang['check_room_type']; ?></td>  
+                      </tr>    
+                      <tr>
+                        <td colspan="2">
+                            <select name="type"  id="type"  name="type"  required>
+                           <option value="single"><?php echo $lang['single_room']; ?></option>   
+                           <option value="double"><?php echo $lang['double_room']; ?></option>   
 
-              </tr> 
-            </form>    
+                        </select>
+                          </td>  
+                      </tr> 
+                      <!---  send the lang variable into js   -->    
+                      <input type="hidden" name="lang" value="<?php echo $_SESSION['lang']; ?>"  id="lang">  
+                      <tr>
+                       <td  colspan="2"  ><input type="submit" value="<?php echo $lang['check_btn']; ?>" id="rooms_check"></td>  
+
+                      </tr> 
+                </form>    
             </table>
 
       </div>  
@@ -149,58 +166,54 @@ $second_last = $total_no_of_pages - 1; // total pages minus 1
          echo '
 
               <div class="row room-div "    style="padding: 5px 0px; " id="room_div">
-                <div class="col-md-4">
+                <div class="col-4  offset-3"  >
                       <img src="../roomImages/'.$room['image'].' " class="img-fluid"  >
 
                 </div>
 
-                <div class="col-md-4">
-                  <h5>'.$room['type'].'</h5>
+                <div class="col-4 "  >
+                  <h5>'.$room['type_'.$_SESSION['lang']].'</h5>
                   <table>
                     <tr>
                       <td>'.$room['price'].'$/day</td>
                     </tr>
                     <tr>
-                      <td>size</td>
-                      <td>capacity</td>
+                      <td> '.$lang['room_size'].'</td>
+                      <td>'.$lang['room_capacity'].'</td>
                     </tr> 
                     <tr>
                       <td>'.$room['size'].'</td>
                       <td>'.$room['capacity'].'</td>    
                     </tr>  
                     <tr>
-                      <td>bed</td> 
+                      <td>'.$lang['room_bed'].'</td> 
                     </tr>
                     <tr>
-                      <td>'.$room['bed'].'</td>      
+                      <td>'.$room['bed_'.$_SESSION['lang']].'</td>      
                     </tr>  
                     <tr>
-                      <td><a href="single_room_view.php?rid='.$room['id'].' ">View Details</a></td>
+                      <td><a href="single_room_view.php?rid='.$room['id'].' ">'.$lang['room_link'].'</a></td>
                     </tr>  
                   </table>    
 
                 </div>  
              </div>';
+                }
+        
+        }else{
+            echo'
+                <div class="row" style="padding: 5px 0px;" >
+                 <div class="col-md-4 col-sm-2">
+
+                </div>
+
+                 <div class="col-md-4">
+                    <p> '.$lang['not_ava_pra'].'</p>
+                </div>
+
+                </div>'
+                ;
         }
-        
-    }else{
-        echo'
-        <div class="row" style="padding: 5px 0px;" >
-         <div class="col-md-4">
-           
-        </div>
-         
-         <div class="col-md-4">
-            <p> Sorry No Room Available  </p>
-        </div>
-        
-        </div>
-        
-        
-        '
-            
-            ;
-    }
     
  
 ?>     
@@ -213,7 +226,7 @@ $second_last = $total_no_of_pages - 1; // total pages minus 1
        // Showing Current Page Number Out of Total
 echo "
 <div class='page-div'>
-  <p>Page <strong>$page_no</strong> of $total_no_of_pages</p>
+  <p>".$lang['page_num']." <strong>$page_no</strong> ".$lang['page_of']." $total_no_of_pages</p>
 </div>" ;
     ?>
  <ul class="pagination">

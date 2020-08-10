@@ -10,6 +10,17 @@ if(isset($_SESSION['logged'])){
     exit();
 }
 
+// language 
+if(isset($_GET['lang']) && !empty($_GET['lang'])){
+    // intilaize session 
+     $_SESSION['lang'] = $_GET['lang'];
+}
+// Include Language file
+if(isset($_SESSION['lang'])){
+ include "../lang/lang_".$_SESSION['lang'].".php";
+}else{
+ include "../lang/lang_en.php";
+}
 
  $user = new User();
  $user_data = $user->getUserData($email);
@@ -43,9 +54,9 @@ if(isset($_POST['update_personal_info'])){
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="<?php echo $lang['lang_dir']; ?>">
 <head>
- <title>Hotel</title>  
+ <title><?php echo $lang['web_title']; ?></title>   
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Raha Hotel   ">
@@ -83,7 +94,7 @@ if(isset($_POST['update_personal_info'])){
     <!-- start landing page caption -->
      <div class="caption center-block text-center">
           
-         <h4>Welcome <?php echo $user_data['firstName']; ?></h4>  
+         <h4>  <?php echo $lang['account_page_title']; ?></h4>  
          
      </div> 
  
@@ -98,20 +109,20 @@ if(isset($_POST['update_personal_info'])){
           <div class="col-md-3 ">
           </div>
           <div class="col-md-2 profile-tab"  >
-              <button class="tablinks" onclick="openTab(event, 'personal_info')" id="defaultOpen">Personal Info</button>
+              <button class="tablinks" onclick="openTab(event, 'personal_info')" id="defaultOpen"><?php echo $lang['account_personal_info'] ?></button>
           </div>
             <div class="col-md-2 profile-tab">
-                <button class="tablinks" onclick="openTab(event, 'change_pwd')">Cahnge Password</button>
+                <button class="tablinks" onclick="openTab(event, 'change_pwd')"><?php echo $lang['account_change_password'] ?></button>
                </div>
           <div class="col-md-2 profile-tab">
-              <button class="tablinks" onclick="openTab(event, 'booking')">Reservations</button>
+              <button class="tablinks" onclick="openTab(event, 'booking')"><?php echo $lang['account_reservatins'] ?></button>
            </div>
     </div>
 <!--end tabs row --->
      
  <!--personal info content --->   
-    <div id="personal_info" class="row tabcontent"  >   
-       <div class="col-md-6 offset-3" >
+    <div id="personal_info" class="row tabcontent" > 
+         <div class="col-md-4 " >
            <?php 
            if($update_personal_info){
                echo '
@@ -122,32 +133,32 @@ if(isset($_POST['update_personal_info'])){
                             }  
                       ?>
               <form   method="post" action="user_profile_view.php"  id="update_personal_info">
-                  <div class="form-group">
-                    <label >First Name</label>
-                    <input type="text" class="form-control" name="fname" id="fname" value="<?php echo $user_data['firstName'] ?>"  required>
+                  <div class="form-group"  style="text-align:center;">
+                    <label ><?php echo $lang['first_name'] ?></label>
+                    <input type="text" class="form-control" name="fname" id="fname"  value="<?php echo $user_data['firstName'] ?>"    required>
                    </div>
 
-                   <div class="form-group">
-                    <label >Last Name</label>
-                    <input type="text" class="form-control"  name="lname" id="lname" value="<?php echo $user_data['lastName'] ?>" required>
+                   <div class="form-group" style="text-align:center;">
+                    <label ><?php echo $lang['last_name'] ?></label>
+                    <input type="text" class="form-control"  name="lname" id="lname" value="<?php echo $user_data['lastName'] ?>"   required>
                    </div> 
 
-                  <div class="form-group">
-                    <label >Email</label>
-                    <input type="email" class="form-control" name="email" id="email"  value="<?php echo $user_data['email'] ?>" required>
+                  <div class="form-group" style="text-align:center;">
+                    <label ><?php echo $lang['email'] ?></label>
+                    <input type="email" class="form-control" name="email" id="email"  value="<?php echo $user_data['email'] ?>"  required>
                    </div>
                  <input type="hidden"  value="<?php echo $user_data['id']  ?>"  name="id">
-                 <button type="submit" class="btn btn-primary"  name="update_personal_info">Update</button>
+                 <button type="submit" class="btn btn-primary"  name="update_personal_info" style="text-align:center;"><?php echo $lang['update_btn'] ?></button>
 
               </form>
 
           </div>
-        
-    </div>
+ 
+     </div>
      
     <!--password content --->   
-    <div class="row tabcontent" id="change_pwd"  >    
-     <div class="col-md-6  offset-3"  >
+    <div class="row tabcontent" id="change_pwd"   > 
+       <div class="col-md-4 "   >
               <?php 
                if($rest_password){
                   echo '
@@ -158,41 +169,42 @@ if(isset($_POST['update_personal_info'])){
                      }
                    ?>
               <form  method="post" action="user_profile_view.php" id="password_reset">
-                   <div class="form-group">
-                    <label >Current Password </label>
-                    <input type="password" class="form-control"  name="current_pwd"  id="current_pwd" required>
+                   <div class="form-group" >
+                    <label ><?php echo $lang['account_current_pass'] ?> </label>
+                    <input type="password" class="form-control"  name="current_pwd"  id="current_pwd"    required>
                        <!-- display is password correct or not after user finish typing -->
                        <span id="current_pwd_msg"></span>
                    </div>
 
                    <div class="form-group">
-                    <label >New Password</label>
-                    <input type="password" class="form-control" name="new_pwd" id="new_pwd" required>
+                    <label ><?php echo $lang['account_new_pass'] ?></label>
+                    <input type="password" class="form-control" name="new_pwd" id="new_pwd"   required>
                    </div> 
 
                   <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" class="form-control"  name="confirm_pwd" id="confirm_pwd" required>
+                    <label><?php echo $lang['account_confirm_pass'] ?></label>
+                    <input type="password" class="form-control"  name="confirm_pwd" id="confirm_pwd"   required>
                    </div>
                   <input type="hidden"  value="<?php echo $user_data['id']  ?>"  name="id">
                  <input type="hidden"  value="<?php echo $user_data['email']  ?>"  name="email">
-                 <button type="submit" class="btn btn-primary"  name="password_reset">Update</button>
+                 <button type="submit" class="btn btn-primary"  name="password_reset"><?php echo $lang['update_btn'] ?></button>
 
               </form>
 
           </div>
+ 
     </div>
      
   <!--booking info content --->      
     <div id="booking" class="row tabcontent">
-      <div class="col-md-6 offset-3">
+       <div class="col-md-6 "  >
           <table id="table_id" class="display  table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Booking Num</th>
-                        <th>Date In </th>
-                       <th>Date Out </th>
-                       <th>Bill </th>
+                        <th><?php echo $lang['booking_num'] ?></th>
+                        <th><?php echo $lang['check_date_in'] ?> </th>
+                       <th><?php echo $lang['check_date_out'] ?> </th>
+                       <th><?php echo $lang['bill'] ?></th>
                         
                     </tr>
                 </thead>
@@ -213,6 +225,7 @@ if(isset($_POST['update_personal_info'])){
                 </tbody>
             </table>
       </div>
+     
         
     </div>
     

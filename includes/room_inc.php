@@ -17,7 +17,7 @@ protected function getRoomsByDateAndType($date_in,$date_out,$type,$offset){
     $total_records_per_page=3;
     
          $db = $this->connect();
-         $sql="SELECT * FROM rooms WHERE type = '$type' LIMIT $offset, $total_records_per_page ";
+         $sql="SELECT * FROM rooms WHERE type_en = '$type' LIMIT $offset, $total_records_per_page ";
     
         $result= $db->query($sql);
         $numRows=$result->num_rows;

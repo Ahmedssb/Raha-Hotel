@@ -1,3 +1,9 @@
+  // display the cuurent date in the date inputs
+  document.querySelector("#date_in").valueAsDate = new Date();
+  document.querySelector("#date_out").valueAsDate = new Date();
+ 
+ 
+
 
 $(document).ready(function(){
      
@@ -5,7 +11,7 @@ $('#checkRoom').on('click', function(e){
      /* check for date_in and date_out if date_in is greater then display alert using sweet alert library  */
       var date_in = $('#date_in').val();
        var date_out = $('#date_out').val();
-         if(date_in>date_out){
+         if(date_in >= date_out){
            swal({
                text: "Date Out Must Be Greater Than Date In!",
               icon: "error",
@@ -17,6 +23,11 @@ $('#checkRoom').on('click', function(e){
     
      });
 });
+// change lang 
+ function changeLang(){
+  document.getElementById('form_lang').submit();
+ }
+
 
 $(document).ready(function(){
      
@@ -47,8 +58,7 @@ $(document).ready(function(){
                 $( "#changed_tr" ).css( "display","block" );
                 /*$('#changed_tr').after('<tr> <td><button type="submit" id="refine_btn">Refine </button>  </td> <td><button>Book </button>  </td> </tr>');*/ 
             }else{
-                 alert(resp);
-                 $( "#not_available_pra" ).css( "display","block" );
+                  $( "#not_available_pra" ).css( "display","block" );
                   $( "#changed_pra" ).css( "display","none" );
                  $( "#changed_tr" ).css( "display","none" );
             }
@@ -73,7 +83,21 @@ $(document).ready(function(){
     e.preventDefault();
      var check_in = $('#check_in').val();
      var check_out = $('#check_out').val();
-      if(check_in>check_out){
+     var type = $('#type').val();      
+     // get the lang variable 
+     var not_ava_pra; 
+     var view_details;     
+     var lang = $('#lang').val();
+       // change variable content depend on the lang value   
+      if(lang == "ar"){
+          not_ava_pra = "<p>عفوا لا توجد غرف متاحة في هذ الفترة</p>";
+         view_details = " تفاصيل أكثر";
+         }else{
+            not_ava_pra = "<p> Sorry there is noo room available on this period of time </p>"; 
+            view_details = " View Details";
+         }
+         
+       if(check_in>check_out){
            swal({
                text: "Date Out Must Be Greater Than Date In!",
               icon: "error",
@@ -82,8 +106,7 @@ $(document).ready(function(){
 			    return false;
  
        }
-     var type = $('#type').val(); 
-        
+
      $.ajax({
         type: "POST",
         url: '../classes/getRoom.php',
@@ -101,25 +124,26 @@ $(document).ready(function(){
                 child = container_div .lastElementChild; 
             }
            
+         var room_div = document.createElement('div');
            if(len >0){
               
                    // check if resp empty then display message there is no available room
                      var i;
                      for( i=0; i< len ;i++){
-                            var room_div = document.createElement('div');
-
                              room_div.className="row  room-div";
 
                             // container_div.removeChild(node);
                              console.log(resp[i].type);
-                              room_div.innerHTML=" <div class='col-md-4'> <img src='../roomImages/"+resp[i].image+" ' class='img-fluid'  ></div><div class='col-md-4'><h5>"+resp[i].type+"</h5><table><tr><td>"+resp[i].price+" $/day</td</tr><tr><td>size</td><td>capacity</td></tr> <tr><td>"+resp[i].size+"</td><td>"+resp[i].capacity+"</td>    </tr>  <tr><td>beeedd</td> </tr><tr><td>"+resp[i].bed+"</td></tr>  <tr>  <td><a href='single_room_view.php?rid="+resp[i].id+" '>View Details</a></td>   </tr>   </table>    </div>";
+                              room_div.innerHTML=" <div class='col-md-4'> <img src='../roomImages/"+resp[i].image+" ' class='img-fluid'  ></div><div class='col-md-4'><h5>"+resp[i].type+"</h5><table><tr><td>"+resp[i].price+" $/day</td</tr><tr><td>size</td><td>capacity</td></tr> <tr><td>"+resp[i].size+"</td><td>"+resp[i].capacity+"</td>    </tr>  <tr><td>beeedd</td> </tr><tr><td>"+resp[i].bed+"</td></tr>  <tr>  <td><a href='single_room_view.php?rid="+resp[i].id+" '>"+view_details+"</a></td>   </tr>   </table>    </div>";
                               console.log(room_div.className);
                                                            console.log(i);
 
                              container_div.append(room_div);   
                             }
                      }else{
-                          room_div.innerHTML="<p> Sorry there is noo room available on this period of time</p>";
+                           room_div.innerHTML=not_ava_pra;
+                           container_div.append(room_div);   
+
                      }
                 
             },error:function(){
@@ -139,8 +163,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
  $('#refine_btn').on('click', function(){
-    //$( "#cahnged_pra" ).replaceWith( <input type="submit" value="check avalability"   id="check_btn">);
-    $( "#changed_tr" ).css( "display","none" );
+      $( "#changed_tr" ).css( "display","none" );
     $( "#check_btn" ).css( "display","block" );
   
 
