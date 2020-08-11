@@ -286,8 +286,8 @@ footer div input[type=submit]{
     max-width: 85%;
     padding: 20px 0px;
     position: absolute;
-    bottom: 0%;
-    padding-bottom: 15%;
+    bottom: 17%;
+    padding-bottom: 10%;
     left: 6%;
    
 }
@@ -298,12 +298,22 @@ footer div input[type=submit]{
 .phone-screen-table{
  margin-left: 0%;
  display: block;
-width: 95%;
-   
+ width: 95%;
+table-layout: fixed;
+    
+    }
+.caption .phone-screen-table td{ 
+        padding: 0;
+       margin: 0;
+     color: #636a76;
+    text-transform: capitalize;
+     width: 7px ;
+    overflow: hidden;
+    
     }
 .caption .phone-screen-table td input{
-    padding: 5px 0px;
-    width: 60%;
+    padding: 10px 0px;
+    width: 65%;
     border: 1px solid #636a76;
     
 }
@@ -318,13 +328,13 @@ width: 95%;
     padding: 15px 70px;
     text-transform: capitalize;
 }
-.caption .phone-screen-table td{ 
-        padding: 4px 0px;
+.about-text h2{
+font-size: 18px;    
     }
-.caption .phone-screen-table td{
-   color: #636a76;
-   text-transform: capitalize;
- }
+.about-text h6{
+font-size: 15px; 
+word-wrap: break-word;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */

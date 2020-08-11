@@ -127,9 +127,9 @@ if(isset($_SESSION['lang'])){
                         <th><?php echo $lang['check_room_type']; ?></th>   
                       </tr>
 
-                  <tr>
+                  <tr >
                       <form method="post" action="classes/getRoom.php">    
-                          <td> <input type="date" name="date_in" id="date_in" required></td>      
+                          <td > <input type="date" name="date_in" id="date_in" required></td>      
                           <td><input type="date" name="date_out" id="date_out" required></td>      
                            <td class="medium-td" > 
                              <select name="type"  required>
@@ -182,8 +182,8 @@ if(isset($_SESSION['lang'])){
 <div id="about"  class="container" style="padding-top:15%;">
   <div  class="row"  >
     
-      <div class="col-md-6"  style="text-align:center">
-        <h2><?php echo $lang['about_title']; ?></h2>
+      <div class="col-md-6 about-text"  style="text-align:center" >
+        <h2  ><?php echo $lang['about_title']; ?></h2>
         <h6 class="about-pra"><?php echo $lang['about_pra']; ?></h6>
       </div>
       
