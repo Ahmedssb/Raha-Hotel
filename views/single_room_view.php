@@ -198,6 +198,9 @@ if(isset($_SESSION['lang'])){
 <!-- disable browser prev button -->    
  <script>
    window.history.forward();
+    // display the cuurent date in the date inputs
+  document.querySelector("#date_in").valueAsDate = new Date();
+  document.querySelector("#date_out").valueAsDate = new Date();
  </script>    
 
 </body>

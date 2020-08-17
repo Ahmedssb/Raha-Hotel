@@ -80,11 +80,11 @@ public function roomInfo($id){
     
 
 // if is set check in coming from ajax request   call the fun  from the  class above 
-      if(isset($_POST['check_in'])){
+      if(isset($_POST['arrival_date'])){
           
         // get the data from the form 
-        $date_in = $_POST['check_in'];
-        $date_out = $_POST['check_out'];
+        $date_in = $_POST['arrival_date'];
+        $date_out = $_POST['leave_date'];
         $type = $_POST['type'];
            
           

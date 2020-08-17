@@ -298,7 +298,7 @@ footer div input[type=submit]{
 .phone-screen-table{
  margin-left: 0%;
  display: block;
- width: 95%;
+ width: 90%;
 table-layout: fixed;
     
     }
@@ -307,7 +307,7 @@ table-layout: fixed;
        margin: 0;
      color: #636a76;
     text-transform: capitalize;
-     width: 7px ;
+     width: 5px ;
     overflow: hidden;
     
     }

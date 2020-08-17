@@ -268,16 +268,16 @@ if(isset($_SESSION['lang'])){
     ?>    
     
 
- <script src="js/jquery-3.4.1.js"></script>
+<script src="js/jquery-3.4.1.js"></script>
  <script src="js/popper.min.js"></script>
  <script src="js/bootstrap.min.js"></script>   
  <script src="js/main.js"></script>
  <script  src="js/sweetalert.min.js"></script> 
 <script>
-var date_in_field = document.getElementById('date_in');
-             date_in=  date_in_field.value;
-var date_out = document.getElementById('date_out').value;
- </script>    
+  // display the cuurent date in the date inputs
+  document.querySelector("#date_in").valueAsDate = new Date();
+  document.querySelector("#date_out").valueAsDate = new Date();
+ </script>        
 </body>
 
 </html>

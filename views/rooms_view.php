@@ -317,6 +317,11 @@ then we simply display all 10 pages. It will be something like below  -->
  <script src="../js/bootstrap.min.js"></script>   
  <script src="../js/main.js"></script>
  <script  src="../js/sweetalert.min.js"></script> 
+ <script>
+  // display the cuurent date in the date inputs
+  document.querySelector("#check_in").valueAsDate = new Date();
+  document.querySelector("#check_out").valueAsDate = new Date();
+ </script> 
 
 </body>
 

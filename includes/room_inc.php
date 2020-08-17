@@ -2,13 +2,7 @@
 include '../includes/db_inc.php';
 
 class Room extends Db{
-    
-    
-    
-protected function getAllRooms(){
-    
-    
-}   
+       
     
 protected function getRoomsByDateAndType($date_in,$date_out,$type,$offset){
     
@@ -106,7 +100,8 @@ protected function getRoomInfo($id){
                    
             }   
 }
-    
+  
+// store useres reservations into the database
 public function makeResevation($rid,$uid,$date_in,$date_out,$bill){
     
      // get connection from Db class

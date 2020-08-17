@@ -1,8 +1,3 @@
-  // display the cuurent date in the date inputs
-  document.querySelector("#date_in").valueAsDate = new Date();
-  document.querySelector("#date_out").valueAsDate = new Date();
- 
- 
 
 
 $(document).ready(function(){
@@ -29,6 +24,8 @@ $('#checkRoom').on('click', function(e){
  }
 
 
+
+// this code called from singleview file to check room is available or not 
 $(document).ready(function(){
      
      $('#check_btn').on('click', function(e){
@@ -76,6 +73,8 @@ $(document).ready(function(){
      
 });
 
+
+// this code called from roomsview when user click refine 
 $(document).ready(function(){
      
      $('#rooms_check').on('click', function(e){
@@ -111,7 +110,7 @@ $(document).ready(function(){
         type: "POST",
         url: '../classes/getRoom.php',
         dataType:"json",
-        data: { "check_in": check_in, "check_out": check_out, "type": type },   
+        data: { "arrival_date": check_in, "leave_date": check_out, "type": type },   
        success: function(resp){
             var len = resp.length;
            var container_div =document.getElementById('container_div');
@@ -131,10 +130,17 @@ $(document).ready(function(){
                      var i;
                      for( i=0; i< len ;i++){
                              room_div.className="row  room-div";
+                             if(lang == "ar"){
+                                 var room_type = resp[i].type_ar;
+                                 var bed_type = resp[i].bed_ar;
+                                 var size ="المساحة";
+                                 var capacity = "السعة";
+                                 var bed = "سرير النوم ";
+                             }
 
                             // container_div.removeChild(node);
                              console.log(resp[i].type);
-                              room_div.innerHTML=" <div class='col-md-4'> <img src='../roomImages/"+resp[i].image+" ' class='img-fluid'  ></div><div class='col-md-4'><h5>"+resp[i].type+"</h5><table><tr><td>"+resp[i].price+" $/day</td</tr><tr><td>size</td><td>capacity</td></tr> <tr><td>"+resp[i].size+"</td><td>"+resp[i].capacity+"</td>    </tr>  <tr><td>beeedd</td> </tr><tr><td>"+resp[i].bed+"</td></tr>  <tr>  <td><a href='single_room_view.php?rid="+resp[i].id+" '>"+view_details+"</a></td>   </tr>   </table>    </div>";
+                              room_div.innerHTML=" <div class='col-4 offset-3'> <img src='../roomImages/"+resp[i].image+" ' class='img-fluid'  ></div><div class='col-md-4'><h5>"+room_type+"</h5><table><tr><td>"+resp[i].price+" $/day</td</tr><tr><td>"+size+"</td><td>"+capacity+"</td></tr> <tr><td>"+resp[i].size+"</td><td>"+resp[i].capacity+"</td>    </tr>  <tr><td>"+bed+"</td> </tr><tr><td>"bed_type"</td></tr>  <tr>  <td><a href='single_room_view.php?rid="+resp[i].id+" '>"+view_details+"</a></td>   </tr>   </table>    </div>";
                               console.log(room_div.className);
                                                            console.log(i);
 
